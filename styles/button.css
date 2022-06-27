@@ -1,12 +1,23 @@
+
+.cv {
+    position: absolute;
+    top: 55%;
+    left: 64%;
+}
+
 .buttons {
     display: flex;
-    align-items: center;
+    flex-wrap: wrap;
     justify-content: center;
-
 }
 
 a {
     margin: 1%;
+}
+
+.buttondiv {
+    margin-left: 2%;
+    margin-right: 2%;
 }
 
 .button {
@@ -25,6 +36,7 @@ a {
     transition: all 0.3s ease 0s;
     cursor: pointer;
     outline: none;
+    margin: 10% 0%;
 }
 
 .button:hover {

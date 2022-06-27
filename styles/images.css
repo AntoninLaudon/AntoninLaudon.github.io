@@ -1,7 +1,12 @@
+
+.divimg-pro {
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
 .img-photopro {
-    position: absolute;
-    top: 15%;
-    left: 5%;
+    width: 500px;
     border-radius: 50%;
     box-shadow: 0px 0px 500px rgba(0, 0, 0, 1);
+    margin-top: 10%;
 }
