@@ -14,5 +14,22 @@
     font-size: 50px;
     text-align: center;
     text-shadow: 0px 0px 45px rgba(0, 0, 0, 1);
+}
 
+@media (max-width: 1360px) {
+    .name {
+        margin-top: 5%;
+    }
+    .description {
+        margin-top: 5%;
+    }
+}
+
+@media (max-width: 800px) {
+    .name {
+        font-size: 45px;
+    }
+    .description {
+        font-size: 30px;
+    }
 }
