@@ -1,0 +1,262 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>sujet.md</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__left">
+    <div class="stackedit__toc">
+      
+<ul>
+<li><a href="#travail-dirigé-initiation-arduino">Travail Dirigé Initiation Arduino</a></li>
+<li><a href="#introduction">Introduction</a>
+<ul>
+<li><a href="#larduino">L’Arduino</a></li>
+<li><a href="#au-programme">Au programme</a></li>
+<li><a href="#règles-du-jeu">Règles du jeu</a></li>
+</ul>
+</li>
+<li><a href="#tâches">Tâches</a>
+<ul>
+<li><a href="#montage-électronique">1. Montage électronique</a></li>
+<li><a href="#environnement-de-travail">2. Environnement de travail</a></li>
+<li><a href="#allumer-et-éteindre-une-led-et-temporiser">3. Allumer et éteindre une LED et temporiser</a></li>
+<li><a href="#commutateur">4. Commutateur</a></li>
+<li><a href="#début-du-jeu">5. Début du jeu</a></li>
+<li><a href="#temps-dattente-et-défaite-prématurée">6. Temps d’attente et défaite prématurée</a></li>
+<li><a href="#victoire-en-conditions-normales">7. Victoire en conditions normales</a></li>
+</ul>
+</li>
+<li><a href="#fin">Fin</a></li>
+</ul>
+
+    </div>
+  </div>
+  <div class="stackedit__right">
+    <div class="stackedit__html">
+      <h1 id="travail-dirigé-initiation-arduino">Travail Dirigé Initiation Arduino</h1>
+<p>Coding Club Paris</p>
+<p><img src="https://anthony-cheap.eu/owncloud/index.php/s/UVqGdAfb1va9P9a/download" alt="alt-text"></p>
+<p>Langage : Arduino (basé sur le C++)</p>
+<p>Durée : 1 heure (20 minutes de mise en place et 40 minutes de programmation guidée)</p>
+<p>Auteur : Arthur C. Philippe</p>
+<p>Note : Ce sujet est faisable en binôme.</p>
+<h1 id="introduction">Introduction</h1>
+<h2 id="larduino">L’Arduino</h2>
+<p>L’Arduino, qu’est-ce que c’est ?</p>
+<p>Une carte Arduino est une carte équipée d’un micro-contrôleur, d’entrées et de sorties.<br>
+Son micro-contrôleur est capable de lancer un programme écrit par l’utilisateur afin de gérer les entrées et les sorties de la carte.</p>
+<h2 id="au-programme">Au programme</h2>
+<p>Qu’allons-nous faire dans l’heure qui suit ?</p>
+<p>Afin de découvrir l’Arduino, nous allons effectuer un montage électronique et un programme simple qui formeront un jeu de réflexe.</p>
+<h2 id="règles-du-jeu">Règles du jeu</h2>
+<p>Le but du jeu est très simple, il faut être le premier à buzzer dès lors qu’un témoin lumineux s’allume.</p>
+<!-- TODO : ajout &#233;ventuel d'un exemple vid&#233;o. -->
+<h1 id="tâches">Tâches</h1>
+<h2 id="montage-électronique">1. Montage électronique</h2>
+<p>Les Cobras vont vous guider dans la démarche à suivre pour réaliser le montage électronique.</p>
+<p><img src="https://i.snag.gy/q2eNxY.jpg" alt="Schéma du montage"></p>
+<h2 id="environnement-de-travail">2. Environnement de travail</h2>
+<p><a href="https://gist.githubusercontent.com/arthurphilippe/73c338f92587ee529ecb80cc9f9ec1bd/raw/2ac9b03b89dd55fe69e8f1175d25f3632aa09fce/jeu.ino">Téléchargez ce fichier</a> et ouvrez le dans le logiciel Arduino.</p>
+<blockquote>
+<p>Le logiciel vous demandera si vous souhaitez créer un dossier de travail → répondez oui.</p>
+</blockquote>
+<blockquote>
+<p>Les Cobras vont vous montrer comment envoyer le code vers la carte Arduino. En cas de blocage, appelez les sans hésiter.</p>
+</blockquote>
+<h2 id="allumer-et-éteindre-une-led-et-temporiser">3. Allumer et éteindre une LED et temporiser</h2>
+<pre class=" language-c"><code class="prism ++ language-c"><span class="token keyword">void</span> <span class="token function">loop</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token function">digitalWrite</span><span class="token punctuation">(</span>pin<span class="token punctuation">:</span><span class="token punctuation">:</span>led2<span class="token punctuation">,</span> HIGH<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token function">delay</span><span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token function">digitalWrite</span><span class="token punctuation">(</span>pin<span class="token punctuation">:</span><span class="token punctuation">:</span>led2<span class="token punctuation">,</span> LOW<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token function">delay</span><span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Dans cet exemple, on utilise l’appel <code>digitalWrite(pin::led2, HIGH)</code> pour allumer notre LED numéro 2. L’appel <code>digitalWrite(pin::led2, LOW)</code> permet d’éteindre la LED.</p>
+<p>Il est possible de remplacer <code>pin::led2</code> par une des autres LED, comme <code>pin::led3</code> par exemple.</p>
+<p>On remarque dans l’exemple un autre appel, <code>delay(1000)</code>. Il a pour effet de faire attendre l’Arduino pendant 1000 millisecondes, soit une seconde. L’utilisation de <code>delay</code>, notamment dans une boucle, permet d’éviter de faire surchauffer la carte.</p>
+<p>Pour tester le code : appuyez sur le bouton rond contenant une flèche pointant vers la droite. Cela va envoyer votre programme à la carte.</p>
+<p><img src="https://i.snag.gy/NJU3zV.jpg" alt="bouton d'upload"></p>
+<h2 id="commutateur">4. Commutateur</h2>
+<p>Nous allons vous donner un bout de code que vous allez mettre à la place de la fonction <code>void loop()</code> et de son contenu.</p>
+<blockquote>
+<p>Avant de rajouter l’exemple qui suit dans votre programme, effacez la fonction <code>void loop()</code> déjà présente. Le contenu de la fonction qui est entre accolades, doit aussi être supprimé.</p>
+</blockquote>
+<pre class=" language-c"><code class="prism ++ language-c"><span class="token keyword">void</span> <span class="token function">loop</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token keyword">if</span> <span class="token punctuation">(</span>pin<span class="token punctuation">:</span><span class="token punctuation">:</span>state1 <span class="token operator">==</span> HIGH<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token comment">// Si le premier bouton a été activé, on allume la LED 2.</span>
+		<span class="token function">digitalWrite</span><span class="token punctuation">(</span>pin<span class="token punctuation">:</span><span class="token punctuation">:</span>led2<span class="token punctuation">,</span> HIGH<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token comment">// On n'oublie pas de remettre l'état du bouton à 0.</span>
+		pin<span class="token punctuation">:</span><span class="token punctuation">:</span>state1 <span class="token operator">=</span> LOW<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>pin<span class="token punctuation">:</span><span class="token punctuation">:</span>state2 <span class="token operator">==</span> HIGH<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token comment">// Si le deuxième bouton à été activé, on éteint la LED susmentionnée.</span>
+		<span class="token function">digitalWrite</span><span class="token punctuation">(</span>pin<span class="token punctuation">:</span><span class="token punctuation">:</span>led2<span class="token punctuation">,</span> LOW<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token comment">// On n'oublie pas de remettre l'état du bouton à 0.</span>
+		pin<span class="token punctuation">:</span><span class="token punctuation">:</span>state2 <span class="token operator">=</span> LOW<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token comment">// Le délai permet d'éviter la chauffe inutile de la carte.</span>
+	<span class="token function">delay</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<blockquote>
+<p>Même chose qu’avant, pour tester, il suffit d’appuyer sur le bouton de téléchargement en amont vers la carte (bouton rond avec une flèche qui pointe vers la gauche)</p>
+</blockquote>
+<h2 id="début-du-jeu">5. Début du jeu</h2>
+<p>Nous allons ajouter une fonction qui a pour but d’attendre que l’on appuie sur les deux boutons avant de lancer une partie.</p>
+<p>Le code à ajouter, juste avant <code>void loop()</code> :</p>
+<pre class=" language-c"><code class="prism ++ language-c"><span class="token comment">/**
+ *  Permet de savoir quand est-ce que le temps imparti est écoulé.
+ */</span>
+<span class="token keyword">unsigned</span> <span class="token keyword">long</span> <span class="token function">timerEnd</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">/**
+ * Cette fonction doit attendre du moment que la partie n'a pas commencé.
+ */</span>
+<span class="token keyword">void</span> <span class="token function">waitStart</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token comment">// Tant que les deux boutons n'ont pas été pressés, on attend 10ms...</span>
+	<span class="token keyword">while</span> <span class="token punctuation">(</span>pin<span class="token punctuation">:</span><span class="token punctuation">:</span>state1 <span class="token operator">!=</span> HIGH <span class="token operator">||</span> pin<span class="token punctuation">:</span><span class="token punctuation">:</span>state2 <span class="token operator">!=</span> HIGH<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token function">digitalWrite</span><span class="token punctuation">(</span>pin<span class="token punctuation">:</span><span class="token punctuation">:</span>led1<span class="token punctuation">,</span> pin<span class="token punctuation">:</span><span class="token punctuation">:</span>state1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token function">digitalWrite</span><span class="token punctuation">(</span>pin<span class="token punctuation">:</span><span class="token punctuation">:</span>led3<span class="token punctuation">,</span> pin<span class="token punctuation">:</span><span class="token punctuation">:</span>state2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token function">delay</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+
+	<span class="token comment">// On confirme que la partie va commencer en allumant toutes les</span>
+	<span class="token comment">// LED.</span>
+	<span class="token function">digitalWrite</span><span class="token punctuation">(</span>pin<span class="token punctuation">:</span><span class="token punctuation">:</span>led1<span class="token punctuation">,</span> HIGH<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token function">digitalWrite</span><span class="token punctuation">(</span>pin<span class="token punctuation">:</span><span class="token punctuation">:</span>led2<span class="token punctuation">,</span> HIGH<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token function">digitalWrite</span><span class="token punctuation">(</span>pin<span class="token punctuation">:</span><span class="token punctuation">:</span>led3<span class="token punctuation">,</span> HIGH<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+	<span class="token comment">// On défini aléatoirement le temps à attendre avant que la LED</span>
+	<span class="token comment">// témoin s'allume.</span>
+	<span class="token keyword">auto</span> <span class="token function">timeToWait</span><span class="token punctuation">(</span><span class="token function">random</span><span class="token punctuation">(</span><span class="token number">2000</span><span class="token punctuation">,</span> <span class="token number">7000</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	timerEnd <span class="token operator">=</span> <span class="token function">millis</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> timeToWait<span class="token punctuation">;</span>
+
+	<span class="token comment">// On attend un peu puis on éteint toutes les LED.</span>
+	<span class="token function">delay</span><span class="token punctuation">(</span><span class="token number">500</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token function">digitalWrite</span><span class="token punctuation">(</span>pin<span class="token punctuation">:</span><span class="token punctuation">:</span>led2<span class="token punctuation">,</span> LOW<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token function">digitalWrite</span><span class="token punctuation">(</span>pin<span class="token punctuation">:</span><span class="token punctuation">:</span>led1<span class="token punctuation">,</span> LOW<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token function">digitalWrite</span><span class="token punctuation">(</span>pin<span class="token punctuation">:</span><span class="token punctuation">:</span>led3<span class="token punctuation">,</span> LOW<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+	<span class="token comment">// On remet les états à 0 pour pouvoir les consulter plus tard.</span>
+	pin<span class="token punctuation">:</span><span class="token punctuation">:</span>state1 <span class="token operator">=</span> LOW<span class="token punctuation">;</span>
+	pin<span class="token punctuation">:</span><span class="token punctuation">:</span>state2 <span class="token operator">=</span> LOW<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Pour appeler la fonction, il suffit de remplacer la fonction <code>void loop()</code> par :</p>
+<pre class=" language-c"><code class="prism ++ language-c"><span class="token keyword">void</span> <span class="token function">loop</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token comment">// On appelle notre nouvelle fonction :</span>
+	<span class="token function">waitStart</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Pour tester le code, il suffit de faire comme au cours des tâches précédentes.</p>
+<p>Si tout marche comme prévu, lorsque vous appuyez sur les deux boutons (pas forcément en simultané) toutes les lumières vont s’allumer, puis s’éteindre après une demi-seconde.</p>
+<blockquote>
+<p>Si vous avez un problème, demandez de l’aide à un Cobra !</p>
+</blockquote>
+<h2 id="temps-dattente-et-défaite-prématurée">6. Temps d’attente et défaite prématurée</h2>
+<p>Maintenant, il faut que l’on ajoute un mécanisme qui attend que le temps imparti soit écoulé. Si un joueur appuie sur son buzzer avant que la lumière se soit allumée, il faut donner le point à son adversaire.</p>
+<p>Pour ce faire on rajoute les fonctions suivantes au code juste sous <code>void loop()</code> :</p>
+<pre class=" language-c"><code class="prism ++ language-c"><span class="token comment">/**
+ * Cette fonction est appelée lorsque le joueur 1 a gagné
+ */</span>
+<span class="token keyword">void</span> <span class="token function">winP1</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token function">digitalWrite</span><span class="token punctuation">(</span>pin<span class="token punctuation">:</span><span class="token punctuation">:</span>led1<span class="token punctuation">,</span> HIGH<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token function">digitalWrite</span><span class="token punctuation">(</span>pin<span class="token punctuation">:</span><span class="token punctuation">:</span>led3<span class="token punctuation">,</span> LOW<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">/**
+ * Cette fonction est appelée lorsque le joueur 2 a gagné
+ */</span>
+<span class="token keyword">void</span> <span class="token function">winP2</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token function">digitalWrite</span><span class="token punctuation">(</span>pin<span class="token punctuation">:</span><span class="token punctuation">:</span>led3<span class="token punctuation">,</span> HIGH<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token function">digitalWrite</span><span class="token punctuation">(</span>pin<span class="token punctuation">:</span><span class="token punctuation">:</span>led1<span class="token punctuation">,</span> LOW<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">/**
+ * Cette fonction attend que le timer soit écoulé ou qu'un joueur se soit
+ * brûlé les ailes.
+ */</span>
+bool <span class="token function">waitTimer</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token function">millis</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;</span> timerEnd<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token keyword">if</span> <span class="token punctuation">(</span>pin<span class="token punctuation">:</span><span class="token punctuation">:</span>state1 <span class="token operator">==</span> HIGH<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+			pin<span class="token punctuation">:</span><span class="token punctuation">:</span>state1 <span class="token operator">=</span> LOW<span class="token punctuation">;</span>
+			<span class="token function">winP2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+			<span class="token keyword">return</span> false<span class="token punctuation">;</span>
+		<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>pin<span class="token punctuation">:</span><span class="token punctuation">:</span>state2 <span class="token operator">==</span> HIGH<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+			pin<span class="token punctuation">:</span><span class="token punctuation">:</span>state2 <span class="token operator">=</span> LOW<span class="token punctuation">;</span>
+			<span class="token function">winP1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+			<span class="token keyword">return</span> false<span class="token punctuation">;</span>
+		<span class="token punctuation">}</span>
+		<span class="token function">delay</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token function">digitalWrite</span><span class="token punctuation">(</span>pin<span class="token punctuation">:</span><span class="token punctuation">:</span>led2<span class="token punctuation">,</span> HIGH<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token keyword">return</span> true<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>On modifie également le contenu de <code>void loop()</code> pour qu’il soit comme ceci :</p>
+<pre class=" language-c"><code class="prism ++ language-c"><span class="token keyword">void</span> <span class="token function">loop</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token function">waitStart</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">waitTimer</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> true<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token comment">// C'est ici que la partie va continuer si personne n'a</span>
+		<span class="token comment">// perdu pendant l'attente.</span>
+	<span class="token punctuation">}</span>
+
+	<span class="token comment">// A la fin de la partie, on attend 2 secondes puis on éteint le</span>
+	<span class="token comment">// témoin et on remet les états des boutons à 0.</span>
+	<span class="token function">delay</span><span class="token punctuation">(</span><span class="token number">2000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	pin<span class="token punctuation">:</span><span class="token punctuation">:</span>state1 <span class="token operator">=</span> LOW<span class="token punctuation">;</span>
+	pin<span class="token punctuation">:</span><span class="token punctuation">:</span>state2 <span class="token operator">=</span> LOW<span class="token punctuation">;</span>
+	<span class="token function">digitalWrite</span><span class="token punctuation">(</span>pin<span class="token punctuation">:</span><span class="token punctuation">:</span>led2<span class="token punctuation">,</span> LOW<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Vous pouvez tester de la même façon qu’avant.</p>
+<p>Pour vous assurer du fonctionnement du programme, après l’avoir téléchargé sur la carte, il suffit de lancer la partie et d’appuyer rapidement sur un des boutons. La LED opposée devrait s’allumer pour montrer que le joueur qui n’a pas appuyé a gagné.</p>
+<h2 id="victoire-en-conditions-normales">7. Victoire en conditions normales</h2>
+<p>Maintenant, une fois que le timer est écoulé, il faut être en mesure de faire gagner le joueur qui buzzera le plus rapidement.</p>
+<p>Pour ce faire, on va rajouter la fonction suivante :</p>
+<pre class=" language-c"><code class="prism ++ language-c"><span class="token comment">/**
+ *  Cette fonction attend qu'un joueur déclenche son buzzer et le fait gagner.
+ */</span>
+<span class="token keyword">void</span> <span class="token function">waitTrig</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token operator">!</span>pin<span class="token punctuation">:</span><span class="token punctuation">:</span>state1 <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span>pin<span class="token punctuation">:</span><span class="token punctuation">:</span>state2<span class="token punctuation">)</span>
+		<span class="token function">delay</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token keyword">if</span> <span class="token punctuation">(</span>pin<span class="token punctuation">:</span><span class="token punctuation">:</span>state1 <span class="token operator">==</span> HIGH<span class="token punctuation">)</span>
+		<span class="token function">winP1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>pin<span class="token punctuation">:</span><span class="token punctuation">:</span>state2 <span class="token operator">==</span> HIGH<span class="token punctuation">)</span>
+		<span class="token function">winP2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>N’oubliez pas de modifier la fonction <code>void loop()</code> afin de la faire employer notre nouvelle fonction :</p>
+<pre class=" language-c"><code class="prism ++ language-c"><span class="token keyword">void</span> <span class="token function">loop</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token function">waitStart</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">waitTimer</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> true<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token function">waitTrig</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+
+	<span class="token comment">// A la fin de la partie, on attend 2 secondes puis on éteint le</span>
+	<span class="token comment">// témoin et on remet les états des boutons à 0.</span>
+	<span class="token function">delay</span><span class="token punctuation">(</span><span class="token number">2000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	pin<span class="token punctuation">:</span><span class="token punctuation">:</span>state1 <span class="token operator">=</span> LOW<span class="token punctuation">;</span>
+	pin<span class="token punctuation">:</span><span class="token punctuation">:</span>state2 <span class="token operator">=</span> LOW<span class="token punctuation">;</span>
+	<span class="token function">digitalWrite</span><span class="token punctuation">(</span>pin<span class="token punctuation">:</span><span class="token punctuation">:</span>led2<span class="token punctuation">,</span> LOW<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Maintenant, vous pouvez mesurer vos réflexes avec vos binômes et avec les autres groupes !</p>
+<blockquote>
+<p>N’oubliez pas de télécharger le nouveau programme vers la carte.</p>
+</blockquote>
+<h1 id="fin">Fin</h1>
+<p>Si vous êtes arrivés ici, c’est que vous avez réussi ce TD. Si la session n’est pas encore terminée, je vous invite à pose des questions à vos Cobras sur le code que vous venez d’utiliser !</p>
+<p><em><strong>Nous espérons que cette initiation expresse aux Arduino vous a plu !</strong></em></p>
+<p>~ Votre gentil auteur de sujet.</p>
+
+    </div>
+  </div>
+</body>
+
+</html>
