@@ -1,0 +1,421 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arduino Tic Tac Toe</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__left">
+    <div class="stackedit__toc">
+      
+<ul>
+<li><a href="#travail-dirigé----morpion-arduino">Travail Dirigé – Morpion Arduino</a></li>
+<li><a href="#introduction">0. Introduction</a>
+<ul>
+<li><a href="#arduino">Arduino</a></li>
+<li><a href="#règles-du-jeu">Règles du jeu</a></li>
+<li><a href="#environnement-de-travail">Environnement de travail</a></li>
+</ul>
+</li>
+<li><a href="#premiers-pas">1. Premiers pas</a>
+<ul>
+<li><a href="#montage">1.1. Montage</a></li>
+<li><a href="#les-fonctions-de-base">1.2. Les fonctions de base</a></li>
+<li><a href="#les-appels-de-base">1.3. Les appels de base</a></li>
+</ul>
+</li>
+<li><a href="#matrice-et-clavier">2. Matrice et clavier</a>
+<ul>
+<li><a href="#montage-1">2.1. Montage</a></li>
+<li><a href="#utilisation-de-la-matrice-led">2.2. Utilisation de la matrice LED</a></li>
+<li><a href="#utilisation-du-clavier">2.3. Utilisation du clavier</a></li>
+</ul>
+</li>
+<li><a href="#logique-de-jeu">3. Logique de jeu</a>
+<ul>
+<li><a href="#changement-de-joueur">3.1. Changement de joueur</a></li>
+<li><a href="#vérification-de-fin-du-jeu">3.2. Vérification de fin du jeu</a></li>
+</ul>
+</li>
+<li><a href="#et-cest-une-victoire-pour...">3. Et c’est une victoire pour…</a>
+<ul>
+<li><a href="#montage-2">3.1. Montage</a></li>
+<li><a href="#annonce-de-la-victoire">3.2. Annonce de la victoire</a></li>
+</ul>
+</li>
+<li><a href="#fin">Fin</a></li>
+<li><a href="#bonus">Bonus</a></li>
+</ul>
+
+    </div>
+  </div>
+  <div class="stackedit__right">
+    <div class="stackedit__html">
+      <h1 id="travail-dirigé----morpion-arduino">Travail Dirigé – Morpion Arduino</h1>
+<p><img src="https://anthony-cheap.eu/owncloud/index.php/s/UVqGdAfb1va9P9a/download" alt="Header" height="167"></p>
+<p><em>Langage</em> : Arduino (basé sur le C++)</p>
+<p><em>Durée</em> : Une demie journée</p>
+<p><em>Adaptation par</em> : Louis Grante et Eliott Bélinguier</p>
+<p><em>Correction</em> : Arthur C. Philippe</p>
+<p><em>Première parution</em> : 2019-01-30</p>
+<p><em>Dernière mise à jour</em> : 2019-01-28</p>
+<blockquote>
+<p><em>Sujet original par</em> : Leonard V. Pooch (Maaown) et Théo Blancquart (Ninja)<br>
+<em>Date d’origine</em> : 2018-12-03</p>
+</blockquote>
+<h1 id="introduction">0. Introduction</h1>
+<h2 id="arduino">Arduino</h2>
+<p>Un Arduino est une carte électronique équipée d’un microcontrôleur, d’entrées et de sorties. L’Arduino est programmable et permet d’exécuter un programme afin de gérer ses entrées et sorties.</p>
+<p><img src="https://anthony-tram.eu/owncloud/index.php/s/kCwUxRY4kKQRbnK/download" alt="Logo-Arduino" height="100"></p>
+<h2 id="règles-du-jeu">Règles du jeu</h2>
+<p>Aujourd’hui, vous allez réaliser un morpion en Arduino, vous serez guidés dans la réalisation du jeu depuis le montage électronique jusqu’à l’écriture du code.</p>
+<p>Vous jouerez en tour par tour et vous devrez aligner trois symboles identiques pour gagner la partie. Une <abbr title="Light Emitting Diode, diode électroluminescente ou DEL : c'est un dispositif capable d’émettre de la lumière lorsqu’il est parcouru par un courant électrique.">LED</abbr> clignotera pour annoncer le vainqueur.</p>
+<p><img src="https://anthony-tram.eu/owncloud/index.php/s/KqqzAaGDq5YUVR6/download" alt="photomontage"></p>
+<h2 id="environnement-de-travail">Environnement de travail</h2>
+<p>Pour cette session, nous commencerons par réaliser le montage de notre projet, puis nous écrirons le code de notre jeu.</p>
+<p>Vous aurez besoin du logiciel Arduino ainsi que d’une partie de code déjà réalisée qui permettra d’obtenir un jeu fonctionnel en ajoutant vos lignes de code.<br>
+Pour cela, lancez le logiciel Arduino et ouvrez le fichier <a href="https://anthony-tram.eu/owncloud/index.php/s/OMIZYfE0oeuPWRK/download"><code>cc_arduino_tic-tac-toe_base.ino</code></a>. Une fois cela fait, vous êtes prêts à commencer la réalisation de votre morpion en Arduino.</p>
+<p><img src="https://anthony-tram.eu/owncloud/index.php/s/H9bDfrpodShEKFo/download" alt="Menu"></p>
+<h1 id="premiers-pas">1. Premiers pas</h1>
+<h2 id="montage">1.1. Montage</h2>
+<p>Pour commencer, vous allez utiliser le matériel à votre disposition et réaliser un montage simple.<br>
+Après cela, on écrira le code qui nous permettra d’interagir avec.</p>
+<p>Vous avez besoin:</p>
+<ul>
+<li>d’une résistance,</li>
+<li>d’une <abbr title="Light Emitting Diode, diode électroluminescente ou DEL : c'est un dispositif capable d’émettre de la lumière lorsqu’il est parcouru par un courant électrique.">LED</abbr>,</li>
+<li>de quatre câbles,</li>
+<li>de la carte Arduino,</li>
+<li>de la plaque de prototypage.</li>
+</ul>
+<p><img src="https://anthony-tram.eu/owncloud/index.php/s/2bibFYaGbDeUa1Q/download" alt="Schéma"></p>
+<hr>
+<p><strong>Polarité</strong></p>
+<p><a href="https://www.pokepedia.fr/Negapi"><img src="https://www.pokepedia.fr/images/b/bf/N%C3%A9gapi-RS.png" alt="negapi" height="100"></a>  <a href="https://www.pokepedia.fr/Posipi"><img src="https://www.pokepedia.fr/images/7/70/Posipi-RS.png" alt="posipi" height="100"></a></p>
+<p>Chaque <abbr title="Light Emitting Diode, diode électroluminescente ou DEL : c'est un dispositif capable d’émettre de la lumière lorsqu’il est parcouru par un courant électrique.">LED</abbr> à <strong>deux pattes</strong>, une pour chaque polarité : une longue – <em>positive</em> – et une courte – <em>négative</em>.</p>
+<p>Sur le schéma, la <strong>patte positive</strong> est celle qui est pliée <em>à droite</em>.</p>
+<p>Entre la terre (<abbr title="Ground, La terre électrique est un concept qui représente le sol (la masse terreuse, d'où le nom de « terre ») tout en le considérant comme conducteur et, par convention, au potentiel 0 volt.">GND</abbr>) et la patte négative (la plus courte,) on doit connecter une résistance.</p>
+<h2 id="les-fonctions-de-base">1.2. Les fonctions de base</h2>
+<p>Sur notre Arduino, le programme qui est exécuté est composé de plusieurs fonctions ; une fonction est un morceau de code regroupant plusieurs instructions, elle sert à réaliser une tâche précise et elle peut être appelée quand nous en avons besoin. Par exemple: une fonction peut servir à allumer une <abbr title="Light Emitting Diode, diode électroluminescente ou DEL : c'est un dispositif capable d’émettre de la lumière lorsqu’il est parcouru par un courant électrique.">LED</abbr>.</p>
+<hr>
+<p>Il y a <strong>deux fonctions</strong> dont un programme en Arduino <strong>ne peut se passer</strong> :</p>
+<ul>
+<li><code>void setup()</code> sera <strong>la première</strong> fonction qui va être exécutée par votre programme ;</li>
+<li><code>void loop()</code> sera <strong>appelé en boucle</strong> après <code>setup</code>.</li>
+</ul>
+<hr>
+<p>La fonction <code>setup</code> a déjà été préparée pour vous – <em>cf. le fichier que vous avez ouvert juste avant</em>.<br>
+<strong>Pour les prochaines étapes</strong> vous allez alors modifier le contenu de la fonction <code>loop</code>.<br>
+Le contenu de la fonction, c’est la partie entre ses accolades <code>{}</code>.</p>
+<h2 id="les-appels-de-base">1.3. Les appels de base</h2>
+<p>Le but de cette section va être de vous faire faire clignoter la <em><abbr title="Light Emitting Diode, diode électroluminescente ou DEL : c'est un dispositif capable d’émettre de la lumière lorsqu’il est parcouru par un courant électrique.">LED</abbr></em> que vous venez de brancher.</p>
+<p>Nous allons voir comment changer l’état d’une broche et comment faire temporiser votre programme.</p>
+<h3 id="changer-létat-dune-broche">1.3.1. Changer l’état d’une broche</h3>
+<p>Nous allons interagir avec notre <abbr title="Light Emitting Diode, diode électroluminescente ou DEL : c'est un dispositif capable d’émettre de la lumière lorsqu’il est parcouru par un courant électrique.">LED</abbr> grâce à la fonction <code>digitalWrite</code> qui s’utilise comme suit :</p>
+<pre class=" language-c"><code class="prism ++ language-c"><span class="token function">digitalWrite</span><span class="token punctuation">(</span>numeroBroche<span class="token punctuation">,</span> nouvelEtat<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// Numéro de la broche sur lequelle la LED est branchée</span>
+<span class="token comment">// nouvelEtat : HIGH (allumé, la broche est sous tension)</span>
+<span class="token comment">// ou LOW (éteint, la broche est hors tension)</span>
+</code></pre>
+<p><strong>Exemple concret</strong></p>
+<pre class=" language-c"><code class="prism ++ language-c"><span class="token function">digitalWrite</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> HIGH<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// Allume la broche 2</span>
+</code></pre>
+<h3 id="temporisation">1.3.2. Temporisation</h3>
+<p>Étant donné que le but de l’exercice qui va suivre va être de faire clignoter une <abbr title="Light Emitting Diode, diode électroluminescente ou DEL : c'est un dispositif capable d’émettre de la lumière lorsqu’il est parcouru par un courant électrique.">LED</abbr>, il va vous falloir savoir comment faire attendre votre programme.</p>
+<p>Pour ce faire, il existe une fonction qui s’appelle <code>delay</code>.  Elle s’utilise de la façon suivante :</p>
+<pre class=" language-c"><code class="prism ++ language-c"><span class="token function">delay</span><span class="token punctuation">(</span>nombreDeMillisecondes<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p><strong>Exemple concret</strong></p>
+<pre class=" language-c"><code class="prism ++ language-c"><span class="token function">delay</span><span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// pour une pause d'une seconde.</span>
+</code></pre>
+<h3 id="exercice">1.3.3. Exercice</h3>
+<p><strong>Énoncé :</strong> Faites clignoter votre <abbr title="Light Emitting Diode, diode électroluminescente ou DEL : c'est un dispositif capable d’émettre de la lumière lorsqu’il est parcouru par un courant électrique.">LED</abbr>, qui est sur la broche numéro 9.</p>
+<blockquote>
+<p>Une broche – ou <em>pin</em> en anglais – est un <strong>port de la carte Arduino</strong> sur lequel il est possible de brancher un câble.<br>
+Pour faire référence à une broche dans votre code, il suffit de regarder quel est son numéro sur la carte.<br>
+Vous devez décider quel état (<code>HIGH</code> ou <code>LOW</code>) vous voulez attribuer à votre <em>pin</em>, et à quel moment.</p>
+</blockquote>
+<p>Rappel : écrivez votre code dans la fonction <code>void loop()</code>.</p>
+<p><strong>Tester votre code</strong></p>
+<p>Pour <strong>utiliser le code que vous venez d’écrire</strong>, vous allez devoir l’envoyer dans la carte <strong>en cliquant sur le bouton</strong> rond avec la <strong>flèche dirigée vers la droite</strong>.<br>
+Cela va permettre de faire tourner le programme que vous avez écrit sur la carte Arduino.</p>
+<p><img src="https://anthony-tram.eu/owncloud/index.php/s/kciVD0nZRk0R0mV/download" alt="Boutons"></p>
+<blockquote>
+<p>ATTENTION : en Arduino, les lignes de code contenant des instructions doivent se finir par un point-virgule.<br>
+Une instruction c’est quelque chose comme un appel de fonction (tel à <code>delay(1000);</code> ou <code>digitalWrite(2, HIGH);</code>)</p>
+</blockquote>
+<h1 id="matrice-et-clavier">2. Matrice et clavier</h1>
+<h2 id="montage-1">2.1. Montage</h2>
+<p>Nous allons ajouter une matrice <abbr title="Light Emitting Diode, diode électroluminescente ou DEL : c'est un dispositif capable d’émettre de la lumière lorsqu’il est parcouru par un courant électrique.">LED</abbr> et un clavier à notre montage.</p>
+<p><img src="https://anthony-tram.eu/owncloud/index.php/s/XNAH9fcJEMPIuaB/download" alt="Schéma"></p>
+<h2 id="utilisation-de-la-matrice-led">2.2. Utilisation de la matrice <abbr title="Light Emitting Diode, diode électroluminescente ou DEL : c'est un dispositif capable d’émettre de la lumière lorsqu’il est parcouru par un courant électrique.">LED</abbr></h2>
+<p>Chaque <abbr title="Light Emitting Diode, diode électroluminescente ou DEL : c'est un dispositif capable d’émettre de la lumière lorsqu’il est parcouru par un courant électrique.">LED</abbr> sur la matrice peut se contrôler indépendamment. Pour rendre la tâche moins fastidieuse, nous vous avons donné des fonctions qui permettent d’afficher les pièces des deux joueurs à des positions différentes.</p>
+<p><em>Fonctions disponibles :</em></p>
+
+<table>
+<thead>
+<tr>
+<th>Nom de la fonction</th>
+<th>Utilité</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>top_left</code></td>
+<td>en haut à gauche</td>
+</tr>
+<tr>
+<td><code>top_right</code></td>
+<td>en haut à droite</td>
+</tr>
+<tr>
+<td><code>top</code></td>
+<td>en haut</td>
+</tr>
+<tr>
+<td><code>bottom_left</code></td>
+<td>en bas à gauche</td>
+</tr>
+<tr>
+<td><code>bottom_right</code></td>
+<td>en bas à droite</td>
+</tr>
+<tr>
+<td><code>bottom</code></td>
+<td>en bas</td>
+</tr>
+<tr>
+<td><code>middle_left</code></td>
+<td>au milieu à gauche</td>
+</tr>
+<tr>
+<td><code>middle_right</code></td>
+<td>au milieu à droite</td>
+</tr>
+<tr>
+<td><code>middle</code></td>
+<td>au milieu</td>
+</tr>
+</tbody>
+</table><p>En fonction du joueur, elles affichent un carré de quatre points ou deux points en diagonale et elles s’utilisent de manière suivante :</p>
+<pre class=" language-c"><code class="prism ++ language-c"><span class="token function">middle</span><span class="token punctuation">(</span>joueur<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// joueur : select_player1 ou select_player2</span>
+<span class="token comment">// le choix du joueur déterminera la forme qui s'affichera</span>
+<span class="token comment">// select_player1 représente le joueur numéro 1</span>
+<span class="token comment">// select_player2 représente le joueur numéro 2</span>
+</code></pre>
+<p>Voici un exemple concret:</p>
+<pre class=" language-c"><code class="prism ++ language-c"><span class="token function">middle</span><span class="token punctuation">(</span>select_player1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// affiche un carré de points au milieu</span>
+<span class="token function">middle</span><span class="token punctuation">(</span>select_player2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// affiche une diagonale de points au milieu</span>
+</code></pre>
+<p>Pour cet exercice, utilisez les fonctions données afin d’afficher un carré dans chaque coin de la matrice et des diagonales aux autres emplacements. Encore une fois, placez votre code dans la fonction <code>loop</code>.</p>
+<pre class=" language-c"><code class="prism ++ language-c"><span class="token keyword">void</span> <span class="token function">loop</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// Votre code ici</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Une fois ceci fait, envoyez le code dans la carte et admirez le résultat.</p>
+<h2 id="utilisation-du-clavier">2.3. Utilisation du clavier</h2>
+<p>Il est temps pour nous de faire usage du clavier que nous avons connecté. Pour se faire, nous allons :</p>
+<ul>
+<li>changer le contenu de <code>void loop()</code> ;</li>
+<li>prendre la base de la fonction qui gère les actions ;</li>
+<li>compléter cette classe avec les interactions manquantes.</li>
+</ul>
+<hr>
+<p><strong>Remplacez</strong> votre fonction <code>loop</code> par celle-ci :</p>
+<pre class=" language-c"><code class="prism ++ language-c"><span class="token keyword">void</span> <span class="token function">loop</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token function">main_loop</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<hr>
+<p>Lorsqu’une touche du clavier sera pressée, l’information sera passée à la fonction <code>void action(char key)</code>.</p>
+<p>Commencez par <strong>cherchez</strong> la fonction dans votre programme.</p>
+<hr>
+<p><strong>Copiez</strong> les lignes suivante et <strong>collez-les</strong> au sein de la fonction <code>action</code> :</p>
+<pre class=" language-c"><code class="prism ++ language-c"><span class="token keyword">void</span> <span class="token function">action</span><span class="token punctuation">(</span><span class="token keyword">char</span> key<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// Copiez ces deux lignes :</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>key <span class="token operator">==</span> <span class="token string">'1'</span><span class="token punctuation">)</span>
+    <span class="token function">top_left</span><span class="token punctuation">(</span>current_player<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">// fin du bloc à copier.</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<hr>
+<p>Dans le code que vous venez de récupérer : la première ligne est une comparaison. Elle permet de regarder si <code>key</code> est égal à <code>'1'</code>. En cas d’égalité, la ligne juste après va être exécutée (c’est à dire <code>top_left(current_player)</code>.)</p>
+<p>Cette ligne va simplement afficher le pion du joueur à la bonne position, comme décrit dans la partie précédente, sur la matrice.</p>
+<hr>
+<p><strong>Complétez</strong> la fonction action, en ajoutant des <code>if</code> et en appelant les bonnes fonctions pour les 8 autres chiffres du clavier.</p>
+<p>Derrière le <code>if (key == '5')</code>, par exemple, la fonction à appeler sera <code>middle(current_player)</code> de façon à faire jouer le joueur au milieu du plateau.</p>
+<p>Les touches qui restent à assigner sont : <code>2, 3, 4, 5, 6, 7, 8, 9</code>.</p>
+<blockquote>
+<p>Rappel : les fonctions que vous devez appeler sont celles décrites dans la partie juste au dessus, sur l’utilisation de la matrice.</p>
+</blockquote>
+<hr>
+<p><strong>Testez</strong> votre nouveau programme en l’envoyant vers la carte et en appuyant sur un bouton du clavier.</p>
+<p>Vérifiez si les bonnes <abbr title="Light Emitting Diode, diode électroluminescente ou DEL : c'est un dispositif capable d’émettre de la lumière lorsqu’il est parcouru par un courant électrique.">LED</abbr> s’allument au bon moment.</p>
+<h1 id="logique-de-jeu">3. Logique de jeu</h1>
+<h2 id="changement-de-joueur">3.1. Changement de joueur</h2>
+<p>Maintenant que vous avez réussi à allumer la matrice en fonction de la touche pressée, il faudrait pouvoir changer de joueur pour être en mesure de jouer en un contre un.</p>
+<p>Dans cet exercice, vous allez écrire votre code dans la fonction <code>change_player</code> :</p>
+<pre class=" language-c"><code class="prism ++ language-c"><span class="token keyword">void</span> <span class="token function">change_player</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token comment">// Votre code</span>
+  <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token comment">// Votre code</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Dans notre programme, on peut savoir quel joueur est actuellement sélectionne en consultant la variable : <code>current_player</code><br>
+Vous devrez écrire une condition qui la vérifie.</p>
+<ul>
+<li>Si <code>current_player</code> vaut <code>select_player1</code> : sa valeur doit être changée à <code>select_player2</code> ;</li>
+<li>sinon si <code>current_player</code> vaut <code>select_player2</code> : sa valeur doit devenir <code>select_player1</code>.</li>
+</ul>
+<hr>
+<p><strong>Exemple d’assignation de valeur</strong></p>
+<pre class=" language-c"><code class="prism ++ language-c"><span class="token comment">// Selectionner le joueur 1 :</span>
+current_player <span class="token operator">=</span> select_player1<span class="token punctuation">;</span>
+
+<span class="token comment">// Selectionner le joueur 2 :</span>
+current_player <span class="token operator">=</span> select_player2<span class="token punctuation">;</span>
+</code></pre>
+<hr>
+<p>Maintenant, il faut <strong>ajouter</strong> une action qui permettra de faire changer le joueur.<br>
+Dans la fonction <code>action</code> et <strong>ajoutez</strong> une <strong>condition</strong> sur le bouton <code>'A'</code>, <code>'B'</code>ou <code>'C'</code> qui <strong>appellera</strong> la fonction <code>change_player</code>. Cela aura pour effet de passer au tour de l’autre joueur.</p>
+<hr>
+<p>Maintenant, <strong>envoyez</strong> le code sur la carte et <strong>testez</strong> votre programme en appuyant sur les chiffres et sur la lettre que vous avez choisi pour vous assurer que tout fonctionne comme prévu.</p>
+<h2 id="vérification-de-fin-du-jeu">3.2. Vérification de fin du jeu</h2>
+<p>Le but de cette section va être de rajouter les vérifications pour savoir si la partie est terminée.</p>
+<hr>
+<p><strong>État du jeu</strong></p>
+<p>Vous avez à votre disposition le tableau <code>game_state</code> qui contient l’état actuel du jeu. Sa taille est de 3x3 et chaque case peut contenir un des quatre états suivants :</p>
+<ul>
+<li><code>state_player1</code> : signifie que le joueur 1 a joué sur cette case ;</li>
+<li><code>state_player2</code> : signifie que le joueur 2 a joué sur cette case ;</li>
+<li><code>state_none</code> : cet état n’est pas important pour l’instant ;</li>
+<li><code>state_none_yet</code> : signifie qu’aucun joueur n’a encore joué sur la case.</li>
+</ul>
+<p>La victoire est comptabilisée pour un joueur lorsqu’il à remplis trois cases qui sont alignées.</p>
+<p>Les cases peuvent êtres alignées verticalement, horizontalement ou en diagonale.</p>
+<hr>
+<p><strong>Utilisation d’un tableau</strong></p>
+<pre class=" language-c"><code class="prism ++ language-c">game_state<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+<span class="token comment">// état de game_state à la position 0,0</span>
+<span class="token comment">// dans ce jeu, les positions peuvent varier de 0 à 2</span>
+</code></pre>
+<blockquote>
+<p>Dans un tableau les positions x , y peuvent varier de <code>0</code> (le minimum) à <code>taille - 1</code> (le maximum), donc dans notre cas de <code>0</code> à <code>2</code> .</p>
+</blockquote>
+<hr>
+<p><strong>Fonction de vérification d’une ligne</strong></p>
+<p>La fonction qui suit permet de savoir si un joueur a gagné sur une ligne donnée. Si c’est le cas, elle renvoie le joueur qui a gagné soit le <code>game_state</code> de la ligne.</p>
+<p>Sinon elle renvoie tout simplement <code>state_none</code> c’est-à-dire quand aucun joueur n’a gagné sur cette ligne.</p>
+<p><strong>Ajoutez-là</strong> à votre programme :</p>
+<pre class=" language-c"><code class="prism ++ language-c">s_state <span class="token function">check_line</span><span class="token punctuation">(</span><span class="token keyword">int</span> line<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>game_state<span class="token punctuation">[</span>line<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">==</span> game_state<span class="token punctuation">[</span>line<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">&amp;&amp;</span> game_state<span class="token punctuation">[</span>line<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">==</span> game_state<span class="token punctuation">[</span>line<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        Serial<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"issou\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token punctuation">(</span>game_state<span class="token punctuation">[</span>line<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> <span class="token punctuation">(</span>state_none<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// return permet de quitter la fonction et de renvoyer une valeur que</span>
+<span class="token comment">// l'on peut consulter à l'endroit où on a appelé la fonction.</span>
+</code></pre>
+<p><img src="https://anthony-tram.eu/owncloud/index.php/s/YxAzC8ps72NhAdu/download" alt="Schémat tableau ligne" height="400"></p>
+<hr>
+<p><strong>Fonction de vérification d’une diagonale</strong></p>
+<p>De la même manière qu’avec fonction <code>check_line</code>, <code>check_diagonale_1</code> permet de vérifier si un joueur a gagné sur la diagonale bas gauche à haut droit. Si oui on renvoie le <code>state_player</code>. Si non on retourne <code>state_none</code>.</p>
+<p><strong>Ajoutez-là</strong> également à votre programme :</p>
+<pre class=" language-c"><code class="prism ++ language-c">s_state <span class="token function">check_diagonale_1</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>game_state<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">==</span> game_state<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">&amp;&amp;</span> game_state<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">==</span> game_state<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> <span class="token punctuation">(</span>game_state<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token punctuation">(</span>state_none<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p><img src="https://anthony-tram.eu/owncloud/index.php/s/DBXuWxlCCgplIed/download" alt="Schéma tableau diagonale" height="400"></p>
+<hr>
+<p>C’est à votre tour maintenant de vérifier <strong>les colonnes</strong> et <strong>l’autre diagonale</strong>. Pour ce faire, écrivez les fonctions suivantes :</p>
+<pre class=" language-c"><code class="prism ++ language-c">s_state <span class="token function">check_column</span><span class="token punctuation">(</span><span class="token keyword">int</span> column<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// Ecrivez votre code pour vérifier la colonne demandée</span>
+
+    <span class="token comment">// si on remmarque que tout les game_states sont égaux sur</span>
+    <span class="token comment">// une colonne, on renvoie la valeur d'un game_state sur la colone.</span>
+    
+    <span class="token comment">// si on ne trouve rien on renvoie : return (state_none);</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<pre class=" language-c"><code class="prism ++ language-c">s_state <span class="token function">check_diagonale_2</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// Votre code pour vérifier l'autre diagonale.</span>
+    
+    <span class="token comment">// Les instructions sont les mêmes que pour au dessus.</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Maintenant sur le même principe que la fonction <code>check_line</code> et <code>check_diagonale_1</code> vous allez développer les deux fonctions ci-dessus. La fonction <code>check_column</code> permet de vérifier si un joueur a gagné sur une colonne donnée et la fonction <code>check_diagonale_2</code> permet elle de vérifier si un joueur a gagné sur  diagonale de en haut à gauche à en bas à droite.</p>
+<hr>
+<p><strong>A vous de jouer !</strong></p>
+<p>Après avoir préparé les fonctions pour vérifier les lignes, les colonnes et les diagonales, il faut que vous les appeliez dans la fonction <code>end_game</code> et qui vous regardiez leurs valeurs de retour, pour en déduire si la partie est finie.</p>
+<p>Pour se faire : faites des <code>ifs</code> et regardez si les retours de vos fonctions <code>check_...</code>. S’ils valent tous <code>state_none</code>, personne n’a gagné et il faut renvoyer state none.<br>
+Si l’un des retours vaut autre chose que <code>state_none</code>, renvoyez-le avec <code>return</code>.</p>
+<pre class=" language-c"><code class="prism ++ language-c">s_state <span class="token function">end_game</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// votre code pour vérifier si la partie est finie</span>
+    <span class="token comment">// Exemple de vérification de la ligne 0 :</span>
+    s_state result <span class="token operator">=</span> <span class="token function">check_line</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>result <span class="token operator">!=</span> state_none<span class="token punctuation">)</span>
+      <span class="token keyword">return</span> <span class="token punctuation">(</span>result<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<blockquote>
+<p><strong>Indice</strong> : pour vérifier plusieurs choses en même temps, on peut utiliser <code>||</code> ou <code>&amp;&amp;</code> :<br>
+<code>condition 1 || condition 2</code>  → 1 ou 2<br>
+<code>condition 1 &amp;&amp; condition 2</code> → 1 et 2</p>
+</blockquote>
+<h1 id="et-cest-une-victoire-pour...">3. Et c’est une victoire pour…</h1>
+<h2 id="montage-2">3.1. Montage</h2>
+<p>Pour la dernière partie, nous avons besoin d’une <abbr title="Light Emitting Diode, diode électroluminescente ou DEL : c'est un dispositif capable d’émettre de la lumière lorsqu’il est parcouru par un courant électrique.">LED</abbr> supplémentaire. Prenez exemple sur la partie 1 du montage pour rajouter une <abbr title="Light Emitting Diode, diode électroluminescente ou DEL : c'est un dispositif capable d’émettre de la lumière lorsqu’il est parcouru par un courant électrique.">LED</abbr> qui sera branchée sur le pin 13.</p>
+<blockquote>
+<p><strong>Indice</strong> : vous aurez besoin d’une <abbr title="Light Emitting Diode, diode électroluminescente ou DEL : c'est un dispositif capable d’émettre de la lumière lorsqu’il est parcouru par un courant électrique.">LED</abbr>, d’une résistance et de deux câbles.<br>
+Veillez à bien utiliser une résistance afin d’éviter de griller la <abbr title="Light Emitting Diode, diode électroluminescente ou DEL : c'est un dispositif capable d’émettre de la lumière lorsqu’il est parcouru par un courant électrique.">LED</abbr>.</p>
+</blockquote>
+<h2 id="annonce-de-la-victoire">3.2. Annonce de la victoire</h2>
+<p>La fonction <code>winner</code> va permettre d’afficher quel joueur a gagné</p>
+<pre class=" language-c"><code class="prism ++ language-c"><span class="token keyword">void</span> <span class="token function">winner</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">[</span>condition <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// Faire clignoter la LED du pin 9</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">[</span>condition <span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// Faire clignoter la LED du pin 13</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Si le joueur numéro 1 a gagné, <code>current_state</code> vaudra <code>state_player1</code>, si le joueur numéro 2 a gagné, <code>current_state</code> vaudra <code>state_player2</code>.<br>
+Écrivez maintenant le code nécessaire au clignotement.</p>
+<hr>
+<p>Votre fonction <code>loop</code> devra être identique à celle-ci :</p>
+<pre class=" language-c"><code class="prism ++ language-c"><span class="token keyword">void</span> <span class="token function">loop</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token function">main_loop</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">winner</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<blockquote>
+<p><strong>Indice</strong> : reprenez la partie du sujet qui vous a appris à utiliser une <abbr title="Light Emitting Diode, diode électroluminescente ou DEL : c'est un dispositif capable d’émettre de la lumière lorsqu’il est parcouru par un courant électrique.">LED</abbr> si vous ne vous souvenez plus comment faire.</p>
+</blockquote>
+<h1 id="fin">Fin</h1>
+<p>Vous devriez à présent être en mesure de jouer et de vous affronter.<br>
+Nous espérons que la réalisation de ce morpion en Arduino vous aura plu.<br>
+Si vous souhaitez poursuivre, il y a quelques bonus disponibles.</p>
+<h1 id="bonus">Bonus</h1>
+<p>Vous pouvez rajouter une condition de match nul à la fonction <code>end_game</code> et faire clignoter les deux LEDs en même temps dans la fonction <code>winner</code>.<br>
+Vous pouvez également faire en sorte de pouvoir redémarrer le jeu en utilisant une des lettres du clavier.</p>
+
+    </div>
+  </div>
+</body>
+
+</html>
